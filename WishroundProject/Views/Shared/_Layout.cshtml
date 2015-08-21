@@ -22,26 +22,9 @@
     <nav id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
-            <li class="sidebar-brand">
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand", onclick="$('#menu-close').click();" })
-            </li>
-            <li>
-                <a href="#top" onclick=$("#menu-close").click();>Home</a>
-            </li>
-            <li>
-                <a href="#about" onclick=$("#menu-close").click();>About</a>
-            </li>
-            <li>
-                <a href="#services" onclick=$("#menu-close").click();>Services</a>
-            </li>
-            <li>
-                <a href="#portfolio" onclick=$("#menu-close").click();>Portfolio</a>
-            </li>
-            <li>
-                <a href="#contact" onclick=$("#menu-close").click();>Contact</a>
-            </li>
+            @Html.Partial("_LoginPartial")
         </ul>
-        @Html.Partial("_LoginPartial")
+        
     </nav>
     @*<div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
