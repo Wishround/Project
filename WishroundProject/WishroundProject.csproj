@@ -206,6 +206,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\confirm.css" />
     <Content Include="Content\img\bg.jpg" />
     <Content Include="Content\img\callout.jpg" />
     <Content Include="Content\img\portfolio-1.jpg" />
@@ -303,6 +304,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Wish\Create.cshtml" />
     <Content Include="Views\Wish\Confirm.cshtml" />
+    <Content Include="Views\Wish\All.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tools\" />

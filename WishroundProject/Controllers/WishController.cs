@@ -33,7 +33,7 @@ namespace WishroundProject.Controllers
                     var root = html.DocumentNode;
                     var nodes = root.Descendants();
                     var totalNodes = nodes.Count();
-                    ViewData[uniqueKey] = new ConfirmWish { Currency = "UAH", ImageUrl = "/ff", Cost = 23.4, Code = "dsds", Name = "dsfsd", URL = model.URL };
+                    ViewData[uniqueKey] = new ConfirmWish { Currency = "UAH", ImageUrl = "/ff", Cost = 23.4f, Code = "dsds", Name = "dsfsd", URL = model.URL };
                 }
                 else
                 {
@@ -47,24 +47,24 @@ namespace WishroundProject.Controllers
         [HttpGet]
         public ActionResult Confirm(string k, bool m)
         {
-            if (string.IsNullOrEmpty(k) || k.Length != 6)
-            {
-                return RedirectToAction("Create");
-            }
+            //if (string.IsNullOrEmpty(k) || k.Length != 6)
+            //{
+            //    return RedirectToAction("Create");
+            //}
 
-            ConfirmWishModel model;
+            ConfirmWishModel model = new ConfirmWishModel(); ;
 
-            if (m)
-            {
-                ConfirmWish data = ViewData[k] as ConfirmWish;
-                model = (ConfirmWishModel)data;
-                model.IsClientParsing = false;
-            }
-            else
-            {
-                string url = ViewData[k].ToString();
-                model = new ConfirmWishModel { URL = url, IsClientParsing = true };
-            }
+            //if (m)
+            //{
+            //    ConfirmWish data = ViewData[k] as ConfirmWish;
+            //    model = (ConfirmWishModel)data;
+            //    model.IsClientParsing = false;
+            //}
+            //else
+            //{
+            //    string url = ViewData[k].ToString();
+            //    model = new ConfirmWishModel { URL = url, IsClientParsing = true };
+            //}
 
             return View(model);
         }
