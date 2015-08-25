@@ -34,7 +34,9 @@ namespace WishroundProject.DataAccess
                 dataContext.Wishes.InsertOnSubmit(wish);
                 dataContext.SubmitChanges();
             }
-            catch { }
+            catch(Exception e)  {
+                //sss
+            }
             return wish;
         }
 

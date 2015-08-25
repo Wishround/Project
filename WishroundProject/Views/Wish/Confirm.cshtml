@@ -6,45 +6,53 @@
 }
 
 @section styles{
-    <link href="~/Content/confirm.css" rel="stylesheet"/>
+    <link href="~/Content/confirm.css" rel="stylesheet" />
 }
 
 <div class="container">
-    <div class="login-box">
+    <div class="account-box">
         <div class="login-logo">
-            <a href="/"><b>Wishround</b> Project</a>
         </div><!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <form action="../../index2.html" method="post">
-                <div class="form-group has-feedback">
-                    <input type="email" class="form-control" placeholder="Email">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div class="account-box-body">
+            <p class="account-box-msg">Your wish is <strong>@Model.Name</strong>.</p>
+            @using (Html.BeginForm("Confirm", "Wish", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary()
+                <div class="form-group">
+                    @Html.HiddenFor(m => m.Name, new { @class = "form-control" })
+
+                    @Html.HiddenFor(m => m.URL, new { @class = "form-control" })
+
+                    @Html.HiddenFor(m => m.Code, new { @class = "form-control" })
+
+                    @Html.HiddenFor(m => m.Cost, new { @class = "form-control" })
+
+                    @Html.HiddenFor(m => m.Currency, new { @class = "form-control" })
+
+                    @Html.HiddenFor(m => m.ImageUrl, new { @class = "form-control" })
                 </div>
-                <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox"> Remember Me
-                            </label>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <img class="col-xs-12" alt="@Model.Name" src="@Model.ImageUrl" />
+                            </div>
+                            <div class="col-xs-6">
+                                <span>Product code: @Model.Code</span>
+                                <br />
+                                <span>Cost: @Model.Cost @Model.Currency</span>
+                            </div>
                         </div>
-                    </div><!-- /.col -->
-                    <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-                    </div><!-- /.col -->
+                    </div>
                 </div>
-            </form>
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook</a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-            </div><!-- /.social-auth-links -->
-            <a href="#">I forgot my password</a><br>
-            <a href="register.html" class="text-center">Register a new membership</a>
-        </div><!-- /.login-box-body -->
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Confirm" class="btn btn-default" />
+                    </div>
+                </div>
+            }
+
+        </div><!-- /.account-box-body -->
     </div>
 </div>

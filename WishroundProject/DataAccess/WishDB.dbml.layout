@@ -2,10 +2,10 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="WishDB">
   <DataContextMoniker Name="/WishDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="0e42e6a7-7125-4733-8995-4723e8f2712a" absoluteBounds="0.5, 0.5, 2, 2.3478011067708335">
+    <classShape Id="1597b8de-5dd3-4237-932e-8f67fe43e009" absoluteBounds="2.75, 2.25, 2, 2.3478011067708335">
       <DataClassMoniker Name="/WishDBDataContext/Wish" />
       <nestedChildShapes>
-        <elementListCompartment Id="51ac97e6-8333-436d-a57d-8874dd1f1e4a" absoluteBounds="0.515, 0.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="64b9ad68-161e-4408-92d0-42798fcc817d" absoluteBounds="2.765, 2.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

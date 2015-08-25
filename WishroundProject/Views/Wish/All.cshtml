@@ -4,6 +4,22 @@
     ViewBag.Title = "All";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>All</h2>
-
+<link href="~/Content/confirm.css" rel="stylesheet" />
+<div class="container">
+    <div class="account-box">
+        <div class="account-logo">
+            <a href="/"><b>Wishround</b> Project</a>
+        </div><!-- /.account-logo -->
+        <div class="account-box-body">
+            <div class="row">
+                @foreach (var wish in Model.Wishes)
+                {
+                    <div class="col-xs-6">
+                        <span class="col-xs-12">@wish.Name</span>
+                        <img class="col-xs-12"  src="@wish.ImageUrl" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
