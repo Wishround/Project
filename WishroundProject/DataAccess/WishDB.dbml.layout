@@ -2,11 +2,24 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="WishDB">
   <DataContextMoniker Name="/WishDBDataContext" />
   <nestedChildShapes>
-    <classShape Id="1597b8de-5dd3-4237-932e-8f67fe43e009" absoluteBounds="2.75, 2.25, 2, 2.3478011067708335">
+    <classShape Id="f3734e8a-f130-4bdc-a847-7a093b9c2fe1" absoluteBounds="0.75, 1, 2, 2.5401025390625005">
       <DataClassMoniker Name="/WishDBDataContext/Wish" />
       <nestedChildShapes>
-        <elementListCompartment Id="64b9ad68-161e-4408-92d0-42798fcc817d" absoluteBounds="2.765, 2.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="67920455-0666-4c6f-9fb0-4fdfd66918c2" absoluteBounds="0.765, 1.46, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="aa6f843e-85f2-4446-8b84-38500111cf47" absoluteBounds="4.375, 1.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/WishDBDataContext/Order" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6bd3ae9b-3f55-4e6e-b07c-5ecffa821218" absoluteBounds="4.39, 2.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 2.41429768880208); (4.375 : 2.41429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/WishDBDataContext/Wish/Wish_Order" />
+      <nodes>
+        <classShapeMoniker Id="f3734e8a-f130-4bdc-a847-7a093b9c2fe1" />
+        <classShapeMoniker Id="aa6f843e-85f2-4446-8b84-38500111cf47" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

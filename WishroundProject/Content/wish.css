@@ -1,4 +1,22 @@
-﻿.account-logo {
+﻿.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+.account-logo {
   font-size: 35px;
   text-align: center;
   margin-bottom: 25px;
@@ -12,7 +30,7 @@
   background: #d2d6de;
 }
 .account-box {
-  width: 360px;
+  width: 550px;
   margin: 7% auto;
 }
 @media (max-width: 768px) {

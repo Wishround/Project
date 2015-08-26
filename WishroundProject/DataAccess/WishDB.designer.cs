@@ -33,6 +33,9 @@ namespace WishroundProject.DataAccess
     partial void InsertWish(Wish instance);
     partial void UpdateWish(Wish instance);
     partial void DeleteWish(Wish instance);
+    partial void InsertOrder(Order instance);
+    partial void UpdateOrder(Order instance);
+    partial void DeleteOrder(Order instance);
     #endregion
 		
 		public WishDBDataContext() : 
@@ -72,6 +75,14 @@ namespace WishroundProject.DataAccess
 				return this.GetTable<Wish>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Order> Orders
+		{
+			get
+			{
+				return this.GetTable<Order>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wishes")]
@@ -81,6 +92,8 @@ namespace WishroundProject.DataAccess
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _Id;
+		
+		private string _PublicId;
 		
 		private string _Name;
 		
@@ -96,12 +109,16 @@ namespace WishroundProject.DataAccess
 		
 		private string _UserId;
 		
+		private EntitySet<Order> _Orders;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
+    partial void OnPublicIdChanging(string value);
+    partial void OnPublicIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
     partial void OnCodeChanging(string value);
@@ -120,6 +137,7 @@ namespace WishroundProject.DataAccess
 		
 		public Wish()
 		{
+			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
 			OnCreated();
 		}
 		
@@ -139,6 +157,26 @@ namespace WishroundProject.DataAccess
 					this._Id = value;
 					this.SendPropertyChanged("Id");
 					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicId", DbType="NVarChar(36) NOT NULL", CanBeNull=false)]
+		public string PublicId
+		{
+			get
+			{
+				return this._PublicId;
+			}
+			set
+			{
+				if ((this._PublicId != value))
+				{
+					this.OnPublicIdChanging(value);
+					this.SendPropertyChanging();
+					this._PublicId = value;
+					this.SendPropertyChanged("PublicId");
+					this.OnPublicIdChanged();
 				}
 			}
 		}
@@ -279,6 +317,206 @@ namespace WishroundProject.DataAccess
 					this._UserId = value;
 					this.SendPropertyChanged("UserId");
 					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wish_Order", Storage="_Orders", ThisKey="Id", OtherKey="WishId")]
+		public EntitySet<Order> Orders
+		{
+			get
+			{
+				return this._Orders;
+			}
+			set
+			{
+				this._Orders.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Wish = this;
+		}
+		
+		private void detach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Wish = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Orders")]
+	public partial class Order : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _PublicId;
+		
+		private string _Status;
+		
+		private int _WishId;
+		
+		private EntityRef<Wish> _Wish;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnPublicIdChanging(string value);
+    partial void OnPublicIdChanged();
+    partial void OnStatusChanging(string value);
+    partial void OnStatusChanged();
+    partial void OnWishIdChanging(int value);
+    partial void OnWishIdChanged();
+    #endregion
+		
+		public Order()
+		{
+			this._Wish = default(EntityRef<Wish>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublicId", DbType="NVarChar(36) NOT NULL", CanBeNull=false)]
+		public string PublicId
+		{
+			get
+			{
+				return this._PublicId;
+			}
+			set
+			{
+				if ((this._PublicId != value))
+				{
+					this.OnPublicIdChanging(value);
+					this.SendPropertyChanging();
+					this._PublicId = value;
+					this.SendPropertyChanged("PublicId");
+					this.OnPublicIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="NVarChar(36) NOT NULL", CanBeNull=false)]
+		public string Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WishId", DbType="Int NOT NULL")]
+		public int WishId
+		{
+			get
+			{
+				return this._WishId;
+			}
+			set
+			{
+				if ((this._WishId != value))
+				{
+					if (this._Wish.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnWishIdChanging(value);
+					this.SendPropertyChanging();
+					this._WishId = value;
+					this.SendPropertyChanged("WishId");
+					this.OnWishIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wish_Order", Storage="_Wish", ThisKey="WishId", OtherKey="Id", IsForeignKey=true)]
+		public Wish Wish
+		{
+			get
+			{
+				return this._Wish.Entity;
+			}
+			set
+			{
+				Wish previousValue = this._Wish.Entity;
+				if (((previousValue != value) 
+							|| (this._Wish.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Wish.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Wish.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._WishId = value.Id;
+					}
+					else
+					{
+						this._WishId = default(int);
+					}
+					this.SendPropertyChanged("Wish");
 				}
 			}
 		}

@@ -28,8 +28,8 @@ namespace WishroundProject.Controllers
             if (ModelState.IsValid)
             {
                 var uniqueKey = Guid.NewGuid().ToString().GetHashCode().ToString("x");
-                if (!Request.Browser.IsMobileDevice)
-                {
+                //if (!Request.Browser.IsMobileDevice)
+                //{
                     var html = new HtmlDocument();
                     html.LoadHtml(new WebClient().DownloadString(model.URL));
                     var root = html.DocumentNode;
@@ -44,57 +44,47 @@ namespace WishroundProject.Controllers
                     json = json.Substring(startIndex + 15, json.Length - (startIndex + 15) - 2);
                     json = json.Substring(0, json.Length - 2);
                     Product product = JsonConvert.DeserializeObject<Product>(json);
-                    Session[uniqueKey] = new ConfirmWish { Currency = product.Currency, ImageUrl = product.productImageURL, Cost = product.productPrice, Code = product.productID.ToString(), Name = product.productName, URL = model.URL };
-                }
-                else
-                {
-                    ViewData[uniqueKey] = model.URL;
-                }
-                return RedirectToAction("Confirm", new { k = uniqueKey, m = Request.Browser.IsMobileDevice });
+                    WebClient client = new WebClient();
+                    string imageUrl = "/Content/WishImages/" + Guid.NewGuid().ToString()+".png";
+                    client.DownloadFile(new Uri(product.productImageURL), Server.MapPath("~")+imageUrl);
+                    WishAccess wAccess = new WishAccess(new Guid(User.Identity.GetUserId()));
+                    Wish wish = wAccess.InsertWish(product.productName, product.productID.ToString(), product.productPrice, product.Currency, imageUrl);
+                    if (wish != null)
+                    {
+                        return RedirectToAction("Index", "Wish", new { id = wish.PublicId });
+                    }
+                    //Session[uniqueKey] = new ConfirmWish { Currency = product.Currency, ImageUrl = product.productImageURL, Cost = product.productPrice, Code = product.productID.ToString(), Name = product.productName, URL = model.URL };
+                //}
+                //else
+                //{
+                //    ViewData[uniqueKey] = model.URL;
+                //}
+                //return RedirectToAction("Confirm", new { k = uniqueKey, m = Request.Browser.IsMobileDevice });
             }
             return View(model);
         }
 
         [HttpGet]
-        public ActionResult Confirm(string k, bool m)
+        public ActionResult Index(Guid id)
         {
-            m = true;
-            if (string.IsNullOrEmpty(k) || k.Length != 8)
-            {
-                return RedirectToAction("Create");
-            }
-
-            ConfirmWishModel model = new ConfirmWishModel(); ;
-
-            if (m)
-            {
-                ConfirmWish data = Session[k] as ConfirmWish;
-                model = new ConfirmWishModel { Name = data.Name, Code = data.Code, Cost = data.Cost, Currency = data.Currency, ImageUrl = data.ImageUrl, IsClientParsing = false, URL = data.URL };
-                model.IsClientParsing = false;
-            }
-            else
-            {
-                string url = Session[k].ToString();
-                model = new ConfirmWishModel { URL = url, IsClientParsing = true };
-            }
-
-            return View(model);
+            var wish = WishAccess.GetWishByPublishId(id);
+            return View(new WishInfoModel{ WishId=id.ToString(), Name = wish.Name, Code = wish.Code, ImageUrl = wish.ImageURL, Cost = (float)wish.Cost, Currency = wish.Currency});
         }
 
-        [HttpPost]
-        public ActionResult Confirm(ConfirmWishModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                WishAccess wAccess = new WishAccess(new Guid(User.Identity.GetUserId()));
-                Wish wish = wAccess.InsertWish(model.Name, model.Code, model.Cost, model.Currency, model.ImageUrl);
-                if (wish != null)
-                {
-                    return RedirectToAction("All");
-                }
-            }
-            return View(model);
-        }
+        //[HttpPost]
+        //public ActionResult Confirm(ConfirmWishModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        WishAccess wAccess = new WishAccess(new Guid(User.Identity.GetUserId()));
+        //        Wish wish = wAccess.InsertWish(model.Name, model.Code, model.Cost, model.Currency, model.ImageUrl);
+        //        if (wish != null)
+        //        {
+        //            return RedirectToAction("All");
+        //        }
+        //    }
+        //    return View(model);
+        //}
 
         public ActionResult All()
         {

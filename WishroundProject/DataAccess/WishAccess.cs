@@ -29,7 +29,8 @@ namespace WishroundProject.DataAccess
                     Currency = currency,
                     ImageURL = imageUrl,
                     UserId = userId,
-                    IsCompleted = false
+                    IsCompleted = false,
+                    PublicId = Guid.NewGuid().ToString()
                 };
                 dataContext.Wishes.InsertOnSubmit(wish);
                 dataContext.SubmitChanges();
@@ -37,6 +38,17 @@ namespace WishroundProject.DataAccess
             catch(Exception e)  {
                 //sss
             }
+            return wish;
+        }
+
+        public static Wish GetWishByPublishId(Guid id)
+        {
+            Wish wish = null;
+            WishDBDataContext dataContext = new WishDBDataContext();
+            wish = (from dbWish in dataContext.Wishes
+                    where dbWish.PublicId.Equals(id)
+                     select dbWish).FirstOrDefault();
+
             return wish;
         }
 

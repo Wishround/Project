@@ -14,11 +14,11 @@ namespace WishroundProject.Models
         public string URL { get; set; }
     }
 
-    public class ConfirmWish
+    public class WishInfoModel
     {
         [Required]
         [DataType(DataType.Url)]
-        public string URL { get; set; }
+        public string WishId { get; set; }
         [Required]
         [DataType(DataType.Text)]
         public string Name { get; set; }
@@ -40,11 +40,11 @@ namespace WishroundProject.Models
         public string ImageUrl { get; set; }
     }
 
-    public class ConfirmWishModel : ConfirmWish
-    {
-        [Required]
-        public bool IsClientParsing { get; set; }
-    }
+    //public class ConfirmWishModel : ConfirmWish
+    //{
+    //    [Required]
+    //    public bool IsClientParsing { get; set; }
+    //}
 
     public class WishPreview
     {

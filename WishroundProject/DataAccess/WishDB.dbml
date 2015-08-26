@@ -3,6 +3,7 @@
   <Table Name="dbo.Wishes" Member="Wishes">
     <Type Name="Wish">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Code" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
       <Column Name="Cost" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
@@ -10,6 +11,16 @@
       <Column Name="ImageURL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="IsCompleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="UserId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
+      <Association Name="Wish_Order" Member="Orders" ThisKey="Id" OtherKey="WishId" Type="Order" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="WishId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Wish_Order" Member="Wish" ThisKey="WishId" OtherKey="Id" Type="Wish" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

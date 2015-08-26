@@ -1,0 +1,98 @@
+﻿@model WishroundProject.Models.WishInfoModel
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/wish.css" rel="stylesheet" />
+}
+
+<input id="wishId" type="hidden" value="@Model.WishId"/>
+<script type="text/javascript">
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '463568310489401', status: true, cookie: true, xfbml: true
+        });
+    };
+    (function (d, debug) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement('script'); js.id = id;
+        js.async = true; js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document, /*debug*/ false));
+    function postToFeed(title, desc, url, image) {
+        var obj = {
+            method: 'share_open_graph',
+            action_type: 'og.likes',
+            action_properties: JSON.stringify({
+                object: url,
+            })
+        };
+        function callback(response) { }
+        FB.ui(obj, callback);
+    }
+</script>
+<div class="container">
+    <div class="account-box">
+        <div class="account-logo">
+            <h2>Your wish</h2>
+        </div><!-- /.login-logo -->
+        <div class="account-box-body">
+            <p class="account-box-msg">@Model.Name</p>
+            <div class="row">
+                <div class="col-xs-5">
+                    <img class="col-xs-12" alt="@Model.Name" src="@Model.ImageUrl" />
+                </div>
+                <div class="col-xs-7">
+                    <span>Product code: @Model.Code</span>
+                    <br />
+                    <span>Cost: @Model.Cost @Model.Currency</span>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-xs-6">
+                    <button type="button" style="    width: 100%;" class="btn btn-success btn-lg open-AddBookDialog" data-id="asfasdfasdfasd" data-toggle="modal" data-target="#myModal">Скинуться</button>
+
+                    <!-- Modal -->
+                    <div class="modal modal-lg fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>some content</p>
+                                    <img style="width:100%" src="~/Content/img/please_wait.gif" alt="" />
+                                    <input type="text" name="bookId" id="bookId" value="" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" style="    width: 100%;" data-image="article-1.jpg" data-url="" data-title="Article Title" data-desc="Some description for this article" class="btn btn-success btn-lg btnShare">Запостить у Facebook</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div><!-- /.account-box-body -->
+</div>
+
+@section scripts{
+    <script src="~/Scripts/wish.js"></script>
+}
