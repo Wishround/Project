@@ -185,6 +185,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\Objects\Data.cs" />
     <Compile Include="API\Objects\Order.cs" />
     <Compile Include="API\Objects\Wish.cs" />
     <Compile Include="API\OrderController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\WishController.cs" />
     <Compile Include="DataAccess\OrderAccess.cs" />
@@ -286,6 +288,7 @@
       <LastGenOutput>WishDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\To Filesystem.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />

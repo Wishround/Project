@@ -14,8 +14,14 @@ namespace WishroundProject
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+    name: "Wishes",
+    url: "wishes",
+    defaults: new { controller = "Wish", action = "All"}
+);
+
+            routes.MapRoute(
     name: "Wish",
-    url: "Wish/{id}",
+    url: "wish/{id}",
     defaults: new { controller = "Wish", action = "Index", id = UrlParameter.Optional }
 );
 

@@ -83,7 +83,7 @@ namespace WishroundProject.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Wish");
                 }
                 else
                 {
@@ -290,7 +290,7 @@ namespace WishroundProject.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Wish");
         }
 
         //
@@ -372,7 +372,7 @@ namespace WishroundProject.Controllers
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Wish");
             }
         }
 

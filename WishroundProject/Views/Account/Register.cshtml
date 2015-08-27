@@ -9,12 +9,11 @@
             <a href="/"><b>Wishround</b> Project</a>
         </div><!-- /.account-logo -->
         <div class="account-box-body">
-            <p class="account-box-msg">Sign in to start your session</p>
+            <p class="account-box-msg">Старт сессии</p>
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Create a new account.</h4>
-                <hr />
+                <h4>Создание нового аккаунта</h4>
                 @Html.ValidationSummary()
                 <div class="form-group">
                     @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
@@ -41,12 +40,8 @@
                 </div>
             }
             <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })</a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
+                @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })
             </div><!-- /.social-auth-links -->
-            <a href="#">I forgot my password</a><br>
-            <a href="register.html" class="text-center">Register a new membership</a>
         </div><!-- /.account-box-body -->
     </div>
 </div>

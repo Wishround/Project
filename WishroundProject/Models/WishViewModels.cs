@@ -40,14 +40,9 @@ namespace WishroundProject.Models
         public string ImageUrl { get; set; }
     }
 
-    //public class ConfirmWishModel : ConfirmWish
-    //{
-    //    [Required]
-    //    public bool IsClientParsing { get; set; }
-    //}
-
     public class WishPreview
     {
+        public string PublicId { get; set; }
         public string Name { get; set; }
         public double Cost { get; set; }
         public string Currency { get; set; }

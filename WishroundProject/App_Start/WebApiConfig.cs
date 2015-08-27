@@ -12,9 +12,15 @@ namespace WishroundProject
 			config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "ProductsApi",
+                name: "APIDefault",
                 routeTemplate: "api/{controller}/{action}/{orderId}",
                 defaults: new { orderId = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "Orders",
+                routeTemplate: "api/{controller}/{action}/{data}",
+                defaults: new { data = RouteParameter.Optional }
             );
 
         }

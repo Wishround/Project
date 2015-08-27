@@ -4,7 +4,7 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
         @Html.AntiForgeryToken()
-        <li>@Html.ActionLink("Мои желания", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Мои желания", "All", "Wish", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
 
     }

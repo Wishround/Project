@@ -13,7 +13,7 @@
 <script type="text/javascript">
     window.fbAsyncInit = function () {
         FB.init({
-            appId: '463568310489401', status: true, cookie: true, xfbml: true
+            appId: '@WishroundProject.Config.FacebookAppId', status: true, cookie: true, xfbml: true
         });
     };
     (function (d, debug) {
@@ -22,7 +22,7 @@
         js = d.createElement('script'); js.id = id;
         js.async = true; js.src = "//connect.facebook.net/en_US/all" + (debug ? "/debug" : "") + ".js";
         ref.parentNode.insertBefore(js, ref);
-    }(document, /*debug*/ false));
+    }(document,  false));
     function postToFeed(title, desc, url, image) {
         var obj = {
             method: 'share_open_graph',
@@ -34,14 +34,23 @@
         function callback(response) { }
         FB.ui(obj, callback);
     }
+
+    var LiqPay = {
+        public_key: '@WishroundProject.Config.LiqPayPublicKey',
+        version: 3,
+        currency: '@Model.Currency',
+        description: "For wish '@Model.Name'",
+        server_url: "@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"))api/order/setstatus",
+        sandbox: 1,
+    }
 </script>
 <div class="container">
-    <div class="account-box">
-        <div class="account-logo">
+    <div class="page-box">
+        <div class="page-logo">
             <h2>Your wish</h2>
-        </div><!-- /.login-logo -->
-        <div class="account-box-body">
-            <p class="account-box-msg">@Model.Name</p>
+        </div>
+        <div class="page-box-body">
+            <h3 class="page-box-msg">@Model.Name</h3>
             <div class="row">
                 <div class="col-xs-5">
                     <img class="col-xs-12" alt="@Model.Name" src="@Model.ImageUrl" />
@@ -55,25 +64,51 @@
             </div>
             <div class="row" style="margin-top:15px;">
                 <div class="col-xs-6">
-                    <button type="button" style="    width: 100%;" class="btn btn-success btn-lg open-AddBookDialog" data-id="asfasdfasdfasd" data-toggle="modal" data-target="#myModal">Скинуться</button>
-
-                    <!-- Modal -->
-                    <div class="modal modal-lg fade" id="myModal" role="dialog">
+                    <button type="button" style="    width: 100%;" class="btn btn-success btn-lg open-AddBookDialog" data-toggle="modal" data-target="#costModal">Скинуться</button>
+                    <div class="modal modal-lg fade" id="costModal" role="dialog">
                         <div class="modal-dialog">
-
-                            <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Modal Header</h4>
+                                    <h4 class="modal-title">@Model.Name</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <p>some content</p>
-                                    <img style="width:100%" src="~/Content/img/please_wait.gif" alt="" />
-                                    <input type="text" name="bookId" id="bookId" value="" />
+                                    <img class="please-wait" style="width: 20%; margin: auto; display: block;" src="~/Content/img/please_wait.gif" alt="" />
+                                    <form class="form-horizontal" method="POST" id="sendCost" action="https://www.liqpay.com/api/checkout"
+                                          accept-charset="utf-8">
+                                        <input type="hidden" name="data" value="" />
+                                        <input type="hidden" name="signature" value="" />
+                                        <input type="hidden" id="orderId" />
+                                        <h4>Сколько денег Вы хотели бы вложить</h4>
+                                        <div class="form-group">
+                                            <div class="col-md-10">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">@Model.Currency</span>
+                                                    <input type="number" class="form-control" name="cost" id="amount" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" id="sendCostBtn" class="btn btn-success">Скинутся</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрить</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="modal modal-lg fade" id="payStatusModal" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Проверка статуса платежа</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <img class="please-wait" style="width: 20%; margin: auto; display: block;" src="~/Content/img/please_wait.gif" alt="" />
+                                    <h3 id="payStatus" style="color:green"></h3>
                                 </div>
                             </div>
 
@@ -82,7 +117,7 @@
 
                 </div>
                 <div class="col-xs-6">
-                    <button type="button" style="    width: 100%;" data-image="article-1.jpg" data-url="" data-title="Article Title" data-desc="Some description for this article" class="btn btn-success btn-lg btnShare">Запостить у Facebook</button>
+                    <button type="button" style="width: 100%;"  class="btn btn-success btn-lg btnShare">Запостить у Facebook</button>
                 </div>
             </div>
         </div>
@@ -90,7 +125,7 @@
 
 
 
-    </div><!-- /.account-box-body -->
+    </div>
 </div>
 
 @section scripts{
