@@ -335,7 +335,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Images\" />
-    <Folder Include="Content\WishImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

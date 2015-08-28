@@ -1,5 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="WishroundProjectDB" Class="WishDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\WishroundProjectDB.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="WishroundProjectDBConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_9D67C7_wishround" Class="WishDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SQL5006.Smarterasp.net;Initial Catalog=DB_9D67C7_wishround;User ID=DB_9D67C7_wishround_admin" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="WishroundProjectDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Orders" Member="Orders">
+    <Type Name="Order">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PublicId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
+      <Column Name="WishId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Wishe_Order" Member="Wish" ThisKey="WishId" OtherKey="Id" Type="Wish" IsForeignKey="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.Wishes" Member="Wishes">
     <Type Name="Wish">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -11,16 +20,7 @@
       <Column Name="ImageURL" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="IsCompleted" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="UserId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
-      <Association Name="Wish_Order" Member="Orders" ThisKey="Id" OtherKey="WishId" Type="Order" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Orders" Member="Orders">
-    <Type Name="Order">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="PublicId" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="Status" Type="System.String" DbType="NVarChar(36) NOT NULL" CanBeNull="false" />
-      <Column Name="WishId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Wish_Order" Member="Wish" ThisKey="WishId" OtherKey="Id" Type="Wish" IsForeignKey="true" />
+      <Association Name="Wishe_Order" Member="Orders" ThisKey="Id" OtherKey="WishId" Type="Order" />
     </Type>
   </Table>
 </Database>

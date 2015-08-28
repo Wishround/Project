@@ -1,9 +1,8 @@
 ﻿@model WishroundProject.Models.ExternalLoginConfirmationViewModel
 @{
     ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
-<h2>@ViewBag.Title.</h2>
 <div class="container">
     <div class="account-box">
         <div class="account-logo">
@@ -36,13 +35,6 @@
                     </div>
                 </div>
             }
-            <div class="social-auth-links text-center">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using Facebook @Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })</a>
-                <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using Google+</a>
-            </div><!-- /.social-auth-links -->
-            <a href="#">I forgot my password</a><br>
-            <a href="register.html" class="text-center">Register a new membership</a>
         </div><!-- /.account-box-body -->
     </div>
 </div>
